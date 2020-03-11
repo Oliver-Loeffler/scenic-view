@@ -1,8 +1,11 @@
 Scenic View
 ===========
 
-Scenic View is a JavaFX application designed to make it simple to understand the current state of your application scenegraph, and to also easily manipulate properties of the scenegraph without having to keep editing your code. 
-This lets you find bugs, and get things pixel perfect without having to do the compile-check-compile dance.
+Scenic View lets you explore the scene graph of a running JavaFX application window, as an exploded view, as a tree outline, or as as set of object property panels. Scenic View also lets you explore events and even lets you interactively make changes to the scenegraph in your program as it's running, without having to do the compile-check-compile dance.
+
+You can run Scenic View as a standalone app that searches for running JavaFX apps and attaches to them, or you can include `scenicview.jar` in your build and invoke it in your code like this:
+
+    ScenicView.show(scene);
 
 [![Scenic View Screenshot](http://fxexperience.com/wp-content/uploads/2014/08/scenicView1.png)]()
 
@@ -83,10 +86,18 @@ able to find it.
 
 #### As a dependency
 
-You can add `scenicview.jar` as a dependency to your JavaFX application. Since this jar doesn't include 
-the JavaFX dependencies, you should add them to your project, in case these weren't included yet.
+Your JavaFX app can open a Scenic View window as part of the app. There you can use Scenic View to explore the `scene` object of one of the app's normal windows, It takes just one line of code to open a Scenic View window and examine a scene:
 
-For instance, if you are running a gradle project, add the jar to a `libs` folder, then add it to the `build.gradle` file, like:
+        ScenicView.show(scene);
+
+Your app must be built to use this jar file, which you made above in the `gradlew build` step:
+
+        build/libs/scenicview.jar
+
+Since `scenicview.jar` doesn't include 
+the JavaFX dependencies it needs, you be sure all of them are added to your project.
+
+With **gradle**, add `scenicview.jar` to a `libs` folder, then add it to the `build.gradle` file, like:
 
         plugins {
             id 'application'
@@ -114,13 +125,14 @@ and also add it to the `module-info.java` file requirements:
 
         requires org.scenicview.scenicview;
 
-Finally, you can run it from the application class:
+With **maven**, add this to your `pom.xml` file:
 
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-        
-        ScenicView.show(scene);
+        <!-- https://mvnrepository.com/artifact/net.raumzeitfalle.fx/scenic-view -->
+        <dependency>
+            <groupId>net.raumzeitfalle.fx</groupId>
+            <artifactId>scenic-view</artifactId>
+            <version>11.0.2</version>
+        </dependency>
 
 ## License
 
